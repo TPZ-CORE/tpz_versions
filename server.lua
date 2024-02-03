@@ -26,21 +26,28 @@ end
 AddEventHandler('onResourceStart', function(resourceName)
   local currentResourceName = GetCurrentResourceName()
 
+  -- If the started resource is tpz_updates, we dont run
+  -- the rest of the code.
   if currentResourceName == resourceName then
      return
   end 
 
   local length = GetTableLength(Config.Repositories)
 
+  -- In case the length of Config.Repositories is empty,
+  -- dont run the rest of the code. 
   if length <= 0 then
      return
   end
 
+  -- Checking if the started resource exists in Config.Repositories
+  -- before we request for the version.
   for _, resource in pairs (Config.Repositories) do
 
     if resourceName == resource.Name then
        local currentVersion, repoVersion = RequestResourceVersionByUrl(resource.Url, resource.Name)
       
+       -- Printing only if the currentVersion of the script is not null.
        if currentVersion then
     
        end 
