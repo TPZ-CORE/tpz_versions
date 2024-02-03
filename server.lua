@@ -24,9 +24,11 @@ end
 -----------------------------------------------------------
 
 AddEventHandler('onResourceStart', function(resourceName)
-  if (GetCurrentResourceName() ~= resourceName) then
-    return
-  end
+  local currentResourceName = GetCurrentResourceName()
+
+  if currentResourceName == resourceName then
+     return
+  end 
 
   local length = GetTableLength(Config.Repositories)
 
@@ -35,11 +37,15 @@ AddEventHandler('onResourceStart', function(resourceName)
   end
 
   for _, resource in pairs (Config.Repositories) do
-     local currentVersion, repoVersion = RequestResourceVersionByUrl(resource.Url, resource.Name)
-      
-     if currentVersion then
 
-     end 
+    if resourceName == resource.Name then
+       local currentVersion, repoVersion = RequestResourceVersionByUrl(resource.Url, resource.Name)
+      
+       if currentVersion then
+    
+       end 
+
+    end
 
   end
 
