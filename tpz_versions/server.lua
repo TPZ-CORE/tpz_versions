@@ -31,7 +31,7 @@ AddEventHandler('onResourceStart', function(resourceName)
       Wait(5000)
       
       -- We print ONLY if the version is outdated.
-      if tostring(currentVersion) ~= tostring(text) then
+      if tonumber(currentVersion) ~= tonumber(text) then
          local log = "(!) Outdated Resource Version - Checkout Github: https://github.com/TPZ-CORE/" .. resourceName
          print(('^5['.. resourceName..']%s %s^7'):format('^1', log))
       end
