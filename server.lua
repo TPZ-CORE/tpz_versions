@@ -1,6 +1,6 @@
 
 local function RequestResourceVersionByUrl(url, resource)
-    PerformHttpRequest('https://raw.githubusercontent.com/TPZ-CORE/' .. url .. '/main/version.txt', function(err, text, headers)
+    PerformHttpRequest('https://raw.githubusercontent.com/TPZ-CORE/' .. url .. '/main/fxmanifest.lua', function(err, text, headers)
         local currentVersion = GetResourceMetadata(resource, 'version')
 
         if not text then 
