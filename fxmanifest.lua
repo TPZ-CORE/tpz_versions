@@ -5,3 +5,6 @@ game 'rdr3'
 author 'Nosmakos'
 description 'TPZ-CORE Versions Checker'
 version '1.0.0'
+
+shared_scripts { 'config.lua' }
+server_scripts { 'server.lua' }
