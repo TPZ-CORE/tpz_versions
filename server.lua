@@ -1,26 +1,22 @@
-local function versionCheckPrint(_type, log)
-    local color = _type == 'success' and '^2' or '^1'
 
-    print(('^5['..GetCurrentResourceName()..']%s %s^7'):format(color, log))
-end
-
-local function CheckVersion()
+local function RequestResourceVersionByUrl(url)
     PerformHttpRequest('https://raw.githubusercontent.com/Rexshack-RedM/rsg-canteen/main/version.txt', function(err, text, headers)
         local currentVersion = GetResourceMetadata(GetCurrentResourceName(), 'version')
 
         if not text then 
             versionCheckPrint('error', 'Currently unable to run a version check.')
-            return 
+            return nil
         end
 
-        if text == currentVersion then
-            versionCheckPrint('success', 'You are running the latest version.')
-        else
-            versionCheckPrint('error', ('You are currently running an outdated version, please update to version %s'):format(text))
-        end
+        return currentVersion, text
     end)
 end
 
+-- @GetTableLength returns the length of a table.
+local GetTableLength = function(T)
+  local count = 0
+  for _ in pairs(T) do count = count + 1 end
+  return count
 end
 
 -----------------------------------------------------------
@@ -32,5 +28,19 @@ AddEventHandler('onResourceStart', function(resourceName)
     return
   end
 
+  local length = GetTableLength(Config.Repositories)
+
+  if length <= 0 then
+     return
+  end
+
+  for _, resource in pairs (Config.Repositories) do
+     local currentVersion, repoVersion = RequestResourceVersionByUrl(resource.Url)
+      
+     if currentVersion then
+
+     end 
+
+  end
 
 end)
