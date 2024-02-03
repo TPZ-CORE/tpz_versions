@@ -1,10 +1,10 @@
 
-local function RequestResourceVersionByUrl(url)
+local function RequestResourceVersionByUrl(url, resource)
     PerformHttpRequest('https://raw.githubusercontent.com/Rexshack-RedM/rsg-canteen/main/version.txt', function(err, text, headers)
-        local currentVersion = GetResourceMetadata(GetCurrentResourceName(), 'version')
+        local currentVersion = GetResourceMetadata(resource, 'version')
 
         if not text then 
-            versionCheckPrint('error', 'Currently unable to run a version check.')
+            print('[error] Currently unable to run a version check for resource {' .. resource .. '}.'
             return nil
         end
 
@@ -35,7 +35,7 @@ AddEventHandler('onResourceStart', function(resourceName)
   end
 
   for _, resource in pairs (Config.Repositories) do
-     local currentVersion, repoVersion = RequestResourceVersionByUrl(resource.Url)
+     local currentVersion, repoVersion = RequestResourceVersionByUrl(resource.Url, resource.Name)
       
      if currentVersion then
 
