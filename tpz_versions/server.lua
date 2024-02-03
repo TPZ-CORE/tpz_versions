@@ -14,7 +14,7 @@ local function RequestResourceVersionByName(resourceName)
        local currentVersion = GetResourceMetadata(resourceName, 'version')
 
        if not text then 
-           print('[error] Currently unable to run a version check for resource {' .. resourceName .. '}.'
+           print('[error] Currently unable to run a version check for resource {' .. resourceName .. '}.')
            return nil
        end
 
