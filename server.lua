@@ -47,8 +47,8 @@ AddEventHandler('onResourceStart', function(resourceName)
     if resourceName == resource.Name then
        local currentVersion, repoVersion = RequestResourceVersionByUrl(resource.Url, resource.Name)
       
-       -- Printing only if the currentVersion of the script is not null.
-       if currentVersion and (currentVersion ~= repoVersion) then
+       -- Printing only if the currentVersion of the script is not null and is outdated version.
+       if currentVersion and (tostring(currentVersion) ~= tostring(repoVersion)) then
           print("(!) Outdated Resource Version - Checkout Github: https://github.com/TPZ-CORE/" .. resource.Url)
        end 
 
