@@ -6,4 +6,4 @@ author 'Nosmakos'
 description 'TPZ-CORE Versions Checker'
 version '1.0.0'
 
-server_scripts { 'server.lua' }
+server_script 'server.lua'
