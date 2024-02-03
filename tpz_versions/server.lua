@@ -1,25 +1,9 @@
--- @GetTableLength returns the length of a table.
-local function GetTableLength(T)
-  local count = 0
-  for _ in pairs(T) do count = count + 1 end
-  return count
-end
+-----------------------------------------------------------
+--[[ Local Functions  ]]--
+-----------------------------------------------------------
 
 local function startsWith(String,Start)
    return string.sub(String,1,string.len(Start))==Start
-end
-
-local function RequestResourceVersionByName(resourceName)
-   PerformHttpRequest('https://raw.githubusercontent.com/TPZ-CORE/' .. resourceName .. '/main/version.txt', function(err, text, headers)
-       local currentVersion = GetResourceMetadata(resourceName, 'version')
-
-       if not text then 
-           --print('[warn] Currently unable to run a version check for resource {' .. resourceName .. '}.')
-           return nil
-       end
-
-       return currentVersion, text
-   end)
 end
 
 -----------------------------------------------------------
@@ -35,16 +19,23 @@ AddEventHandler('onResourceStart', function(resourceName)
   
    -- We are now checking if the script which contains and started with the required string does exist in the `githubusercontent`.
    -- To return a valid version.
-   local currentVersion, repoVersion = RequestResourceVersionByName(resourceName)
 
-   if currentVersion == nil or repoVersion == nil then
-      return
-   end
+   PerformHttpRequest('https://raw.githubusercontent.com/TPZ-CORE/' .. resourceName .. '/main/version.txt', function(err, text, headers)
+      local currentVersion = GetResourceMetadata(resourceName, 'version')
+
+      if not text then 
+         -- print('[warn] Currently unable to run a version check for resource {' .. resourceName .. '}.')
+         return nil
+      end
+
+      Wait(5000)
       
-   -- We print ONLY if the version is outdated.
-   if currentVersion and (tostring(currentVersion) ~= tostring(repoVersion)) then
-      local log = "(!) Outdated Resource Version - Checkout Github: https://github.com/TPZ-CORE/" .. resourceName
-      print(('^5['.. resourceName..']%s %s^7'):format('^1', log))
-   end 
+      -- We print ONLY if the version is outdated.
+      if tostring(currentVersion) ~= tostring(text) then
+         local log = "(!) Outdated Resource Version - Checkout Github: https://github.com/TPZ-CORE/" .. resourceName
+         print(('^5['.. resourceName..']%s %s^7'):format('^1', log))
+      end
+
+   end)
 
 end)
