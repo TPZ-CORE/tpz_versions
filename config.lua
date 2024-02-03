@@ -2,9 +2,5 @@ Config = {}
 
 Config.Repositories = {
 
-    {
-       Name = "TPZ Housing",
-       Url  = "tpz_housing",
-    },
-
+    { Name = "TPZ Housing", Url = "tpz_housing" },
 }
