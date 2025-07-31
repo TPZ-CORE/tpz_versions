@@ -2,7 +2,7 @@
 --[[ Local Functions  ]]--
 -----------------------------------------------------------
 
-local function startsWith(String,Start)
+local function StartsWith(String,Start)
    return string.sub(String,1,string.len(Start))==Start
 end
 
@@ -13,7 +13,7 @@ end
 AddEventHandler('onResourceStart', function(resourceName)
 
    -- If the started resource does not start with `tpz_` which returns tpz-core scripts, we return the code.
-   if not startsWith(resourceName, "tpz_") then
+   if not StartsWith(resourceName, "tpz_") then
       return
    end
   
